@@ -22,6 +22,7 @@ const PROJECTS = [
       ["7", "Services, one compose"],
     ],
     stack: ["Svelte 5", "SvelteKit", "Payload CMS 3", "PostgreSQL", "Redis", "Express SSE", "Docker", "Sentry"],
+    github: "https://github.com/ptchblckchocopie/Bidtomo",
   },
   {
     n: "02",
@@ -44,6 +45,7 @@ const PROJECTS = [
       ["24h", "Match cache TTL"],
     ],
     stack: ["SvelteKit", "Drizzle ORM", "PostgreSQL", "pgvector", "Immich ML (ArcFace)", "sharp", "Docker Compose"],
+    github: "https://github.com/ptchblckchocopie/veent_image",
   },
   {
     n: "03",
@@ -66,6 +68,7 @@ const PROJECTS = [
       ["CoA", "Pause & resume sessions"],
     ],
     stack: ["Python", "PostgreSQL", "Redis", "FreeRADIUS", "Maya", "OpenWRT", "APScheduler", "Docker"],
+    github: "https://github.com/ptchblckchocopie/cashless-piso-wifi",
   },
   {
     n: "04",
@@ -88,6 +91,7 @@ const PROJECTS = [
       ["auto", "KB stays fresh"],
     ],
     stack: ["SvelteKit", "TypeScript", "Dify", "Groq (Llama-3.1-8b)", "Gemini embeddings", "Playwright"],
+    github: "https://github.com/ptchblckchocopie/veent-chatbots",
   },
   {
     n: "05",
@@ -110,6 +114,7 @@ const PROJECTS = [
       ["0", "Manual report assembly"],
     ],
     stack: ["React 19", "FastAPI", "MySQL", "Facebook Prophet", "joblib", "jsPDF", "AutoTable"],
+    github: "https://github.com/KentJhon/capstone_itrack",
   },
 ];
 
@@ -130,7 +135,7 @@ function Work() {
         <div className="section-head reveal">
           <div>
             <div className="section-eyebrow">02 / Selected Work</div>
-            <h2 className="section-title">Five projects, <em>shipped & studied.</em></h2>
+            <h2 className="section-title">Projects, <em>shipped & studied.</em></h2>
           </div>
           <div className="work-filter" role="tablist">
             {filters.map(f => (
@@ -547,6 +552,16 @@ function CaseStudy({ p, onClose }) {
                 ))}
               </div>
             </div>
+
+            {p.github && (
+              <a className="cs-source" href={p.github} target="_blank" rel="noopener noreferrer" data-cursor="view source">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                  <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.51-1.47.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.21-1.5 3.18-1.18 3.18-1.18.62 1.58.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/>
+                </svg>
+                <span>View source on GitHub</span>
+                <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M4 14L14 4M14 4H6M14 4V12" stroke="currentColor" strokeWidth="1.4"/></svg>
+              </a>
+            )}
           </div>
 
           <div className="cs-strip">
@@ -758,7 +773,15 @@ const workStyles = `
     .cs-lead{font-size:22px}
     .cs-body-p{font-size:17px}
   }
-  .cs-strip{display:flex;justify-content:space-between;padding-top:32px;border-top:1px solid var(--line);
+  .cs-source{display:inline-flex;align-items:center;gap:14px;margin-top:40px;
+    padding:18px 26px;border:1px solid var(--line-2);border-radius:99px;
+    font:500 14px/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;
+    color:var(--fg);background:var(--bg-2);transition:all .25s;cursor:none}
+  .cs-source:hover{background:var(--pAccent);color:#000;border-color:var(--pAccent);
+    transform:translateY(-2px);box-shadow:0 12px 32px -8px color-mix(in srgb, var(--pAccent) 35%, transparent)}
+  .cs-source svg:last-child{transition:transform .25s}
+  .cs-source:hover svg:last-child{transform:rotate(45deg)}
+  .cs-strip{display:flex;justify-content:space-between;padding-top:32px;margin-top:40px;border-top:1px solid var(--line);
     font:500 11px/1 var(--mono);color:var(--fg-3);text-transform:uppercase;letter-spacing:.06em}
   .cs-strip kbd{font:500 10px/1 var(--mono);padding:3px 6px;border:1px solid var(--line-2);border-radius:4px;color:var(--fg-2)}
   @media (max-width:760px){
