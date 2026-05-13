@@ -111,7 +111,7 @@ function Contact() {
       <div className="container">
         <div className="ct-eye reveal">
           <span className="section-eyebrow">07 / Contact</span>
-          <span className="meta-k">Coordinates · 14.5995° N, 120.9842° E</span>
+          <span className="meta-k">Coordinates · 8.4542° N, 124.6319° E</span>
         </div>
 
         <h2 className="ct-h reveal">

@@ -20,10 +20,10 @@ function Boot({ onDone }) {
     const tick = (t) => {
       const e = t - t0;
 
-      // Phase 1: 0–900ms — counter ramps to 9842
+      // Phase 1: 0–900ms — counter ramps to 6319
       if (e < 900) {
         const p = e / 900;
-        setN(Math.floor(easeOut(p) * 9842));
+        setN(Math.floor(easeOut(p) * 6319));
         setPhase(1);
       }
       // Phase 2: 900–1800ms — name resolves left-to-right
@@ -36,7 +36,7 @@ function Boot({ onDone }) {
           else s += GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
         }
         setName(s);
-        setN(9842);
+        setN(6319);
         setPhase(2);
       }
       // Phase 3: 1800–2400ms — ready state, then fade
@@ -74,8 +74,8 @@ function Boot({ onDone }) {
           <div>v3.0 / 2026</div>
         </div>
         <div className="bc bc-bl">
-          <div>14.5995° N</div>
-          <div>120.9842° E</div>
+          <div>8.4542° N</div>
+          <div>124.6319° E</div>
         </div>
         <div className="bc bc-br">
           <div>UTC+08 · PHT</div>
@@ -86,14 +86,14 @@ function Boot({ onDone }) {
       <div className="boot-center">
         <div className="boot-counter">
           <span className="bn">{String(n).padStart(4, "0")}</span>
-          <span className="bd">/ 9842</span>
+          <span className="bd">/ 6319</span>
         </div>
         <div className="boot-name">
           <span className="bzmd">ZMD ·</span>
           <span className="btarget">{name}</span>
         </div>
         <div className="boot-bar">
-          <div className="boot-bar-fill" style={{ width: phase >= 3 ? "100%" : phase >= 2 ? "92%" : (n / 9842 * 88) + "%" }} />
+          <div className="boot-bar-fill" style={{ width: phase >= 3 ? "100%" : phase >= 2 ? "92%" : (n / 6319 * 88) + "%" }} />
         </div>
         <div className="boot-status">
           <span className={phase >= 3 ? "ok" : ""}>{["BOOTING","LOADING","RESOLVING","READY"][phase]}</span>

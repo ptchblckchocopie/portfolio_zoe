@@ -44,8 +44,8 @@ PROJECTS (all shipped during 2026 Veent OJT unless noted):
 5. EVENT TICKET BUILDER (Feb 2026, also Veent).
    Vanilla JS canvas editor with drag/resize/rotate, CSV-driven batch personalization, 50-step undo/redo, QR + barcode generation, template save/load to localStorage, and batch ZIP PNG export. Non-developers can lay out tickets visually.
 
-6. STOCKWISE (Capstone, Jan–Dec 2025, USTP).
-   Backend role on an inventory management system. React 19 front-end, FastAPI on MySQL.
+6. INVENTORY MANAGEMENT SYSTEM (Capstone, Jan–Dec 2025, USTP).
+   Backend role. React 19 front-end, FastAPI on MySQL.
    Problem: Partner business reordered by gut feel — slow movers piled up, fast movers stocked out, reports lived in spreadsheets.
    Solution: Facebook Prophet trains nightly on each SKU's history; forecasts next-month and six-month demand. Falls back to a 3-month moving average when an item has < 12 months of data or < 10 issuances. Restock simulation walks the 6-month forecast month-by-month and outputs exactly how much to order. Models persist via joblib; stock cards log every receipt and issuance.
    Outcome: Staff reorder before stockouts; inventory reports export from the browser via jsPDF + AutoTable in two clicks.

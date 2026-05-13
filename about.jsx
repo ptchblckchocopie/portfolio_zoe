@@ -72,11 +72,11 @@ function ChipPit() {
   const chipsRef = React.useRef([]);
   const draggingRef = React.useRef(null);
   const SKILLS = [
-    "TypeScript","JavaScript","Python","PHP","SQL",
+    "TypeScript","JavaScript","Python","PHP","SQL","HTML/CSS",
     "SvelteKit","Svelte 5","React","React Native","Tailwind",
     "FastAPI","Express","Payload CMS","Node",
     "PostgreSQL","pgvector","Drizzle ORM","MySQL","Redis",
-    "Docker","FreeRADIUS","OpenWRT","SSE",
+    "Docker","FreeRADIUS","OpenWRT","SSE","Maya",
     "Dify","Groq","Gemini","Prophet","pandas",
     "Figma","Git",
   ];

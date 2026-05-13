@@ -12,14 +12,14 @@ const PROJECTS = [
     accent: "#ff5500",
     problem: "Veent's auction events were running on chat threads and spreadsheets. Bidders missed price changes between refreshes, two people would post the same number seconds apart, and organizers reconciled winners by hand after every event. The honest answer to \"who's winning right now?\" was \"hold on, let me scroll.\"",
     solution: "A purpose-built auction marketplace. Bids enter a Redis queue and a separate worker processes them in strict order, then pushes price updates to every connected screen through Server-Sent Events — no polling, no refresh. SvelteKit and Payload CMS 3 handle listings and admin; Sentry catches every production stack trace; Redis-backed rate limiting blocks automated bid spam.",
-    outcome: "An auction now runs with one tab open. Bidders see the price tick the instant it changes; organizers stop reconciling by hand because the system already has the answer. Six Docker services, one compose file — same config in dev and prod.",
+    outcome: "An auction now runs with one tab open. Bidders see the price tick the instant it changes; organizers stop reconciling by hand because the system already has the answer. Seven Docker services, one compose file — same config in dev and prod.",
     pal: ["#0a0a0a", "#ff5500", "#f5f5f5"],
     monogram: "BM",
     span: "large",
     impact: [
       ["0", "Refresh-to-see-price"],
       ["1", "Tab to run an auction"],
-      ["6", "Services, one compose"],
+      ["7", "Services, one compose"],
     ],
     stack: ["Svelte 5", "SvelteKit", "Payload CMS 3", "PostgreSQL", "Redis", "Express SSE", "Docker", "Sentry"],
   },
@@ -91,7 +91,7 @@ const PROJECTS = [
   },
   {
     n: "05",
-    title: "Stockwise",
+    title: "Inventory Management System",
     sub: "Stop guessing what to reorder — forecast it.",
     tags: ["Backend", "ML / Forecasting", "Capstone"],
     year: "2025",
@@ -102,7 +102,7 @@ const PROJECTS = [
     solution: "An inventory system that does the forecasting itself. Facebook Prophet trains nightly on each item's order history and predicts next-month and six-month demand. Below the 12-month threshold (or 10 issuances), it falls back to a moving average of the last 3 non-zero months. A restock simulation walks the 6-month forecast month-by-month and outputs exactly how much to order each month. Models persist with joblib; stock cards log every receipt, issuance, and adjustment so there's a clear trail when numbers look off.",
     outcome: "Staff reorder before they run out, not after. Forecasts and inventory reports export from the browser in two clicks via jsPDF and AutoTable instead of being assembled by hand. Nobody kicks off training manually — it happens overnight against the live database.",
     pal: ["#0a0a0a", "#ff4d6d", "#ffb3c1"],
-    monogram: "SW",
+    monogram: "IMS",
     span: "small",
     impact: [
       ["6 mo.", "Forecast horizon"],
@@ -141,7 +141,7 @@ function Work() {
           </div>
         </div>
 
-        <div className="work-grid reveal-stagger">
+        <div className="work-grid">
           {PROJECTS.filter(matchFilter).map((p, i) => (
             <ProjectCard key={p.n} p={p} idx={i} onOpen={() => setOpen(p)} />
           ))}
@@ -168,6 +168,19 @@ function Work() {
 
 function ProjectCard({ p, idx, onOpen }) {
   const ref = React.useRef(null);
+  React.useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          el.classList.add("is-in");
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.18, rootMargin: "0px 0px -100px 0px" });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   const onMove = (e) => {
     const el = ref.current; if (!el) return;
     const r = el.getBoundingClientRect();
@@ -188,7 +201,7 @@ function ProjectCard({ p, idx, onOpen }) {
   return (
     <article ref={ref} className={"pcard pcard-" + p.span} onMouseMove={onMove} onMouseLeave={onLeave}
       onClick={onOpen} data-cursor="open case"
-      style={{"--pAccent": p.accent}}>
+      style={{"--pAccent": p.accent, "--in-delay": (idx % 3) * 90 + "ms"}}>
       <div className="pcard-frame">
         <div className="pcard-canvas">
           <CardArt p={p} />
@@ -222,7 +235,7 @@ function ProjectCard({ p, idx, onOpen }) {
 // Procedural card artwork — each project gets a distinct, brand-aligned scene
 function CardArt({ p }) {
   if (p.title === "Bidmoto") return <BidmotoArt p={p} />;
-  if (p.title === "Stockwise") return <StockwiseArt p={p} />;
+  if (p.title === "Inventory Management System") return <StockwiseArt p={p} />;
   if (p.title === "VeentSnap") return <SnapArt p={p} />;
   if (p.title === "VeentBot") return <BotArt p={p} />;
   if (p.title === "Cashless Piso WiFi") return <WifiArt p={p} />;
@@ -559,7 +572,14 @@ const workStyles = `
   .pcard{position:relative;border-radius:18px;overflow:hidden;
     transform-style:preserve-3d;
     transform:rotateX(var(--rx,0)) rotateY(var(--ry,0));
-    transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+    opacity:0;translate:0 40px;
+    transition:opacity .9s cubic-bezier(.2,.7,.2,1) var(--in-delay,0ms),
+               translate .9s cubic-bezier(.2,.7,.2,1) var(--in-delay,0ms),
+               transform .4s cubic-bezier(.2,.7,.2,1)}
+  .pcard.is-in{opacity:1;translate:0 0}
+  @media (prefers-reduced-motion:reduce){
+    .pcard{opacity:1;translate:0 0;transition:none}
+  }
   .pcard-large{grid-column:span 7;aspect-ratio:16/11}
   .pcard-tall{grid-column:span 5;aspect-ratio:5/6}
   .pcard-wide{grid-column:span 7;aspect-ratio:16/9}
