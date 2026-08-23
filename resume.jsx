@@ -100,7 +100,7 @@ function CvRow({ it }) {
 
 function Contact() {
   const [copied, setCopied] = React.useState(false);
-  const email = "zoempabillaran@gmail.com";
+  const email = "pabillaran.zoe24@gmail.com";
   const copy = () => {
     navigator.clipboard?.writeText(email);
     setCopied(true);
