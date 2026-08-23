@@ -3,8 +3,8 @@
 function Resume() {
   const items = [
     {
-      yr: "Feb–May 2026",
-      role: "Full-Stack Developer (OJT)",
+      yr: "2026",
+      role: "Full-Stack Developer",
       org: "Veent Apps Inc.",
       loc: "Cagayan de Oro",
       note: "Shipped five production systems for Veent: Cashless Piso WiFi (Maya payments + FreeRADIUS), VeentBot (dual-KB RAG chatbots on Groq), VeentSnap (face-match photo search with pgvector), Bidmoto (real-time auction marketplace with SSE), and an Event Ticket Builder.",
@@ -12,18 +12,18 @@ function Resume() {
     },
     {
       yr: "Jan–Dec 2025",
-      role: "Backend Developer (Capstone)",
+      role: "Backend Developer",
       org: "USTP",
-      loc: "Cagayan de Oro (Academic)",
+      loc: "Cagayan de Oro",
       note: "Built an inventory management system with a React 19 front-end and FastAPI/MySQL back-end. Added Facebook Prophet for monthly demand forecasting and a restock simulation that outputs exactly how much to order each month.",
-      tags: ["Backend","ML / Forecasting","FastAPI"],
+      tags: ["Capstone","Backend","ML / Forecasting","FastAPI"],
     },
     {
       yr: "2021–2025",
       role: "BS Information Technology",
       org: "University of Science and Technology of Southern Philippines",
       loc: "Cagayan de Oro",
-      note: "Electives in Database Management and Machine Learning. Graduated 2025.",
+      note: "Electives in Database Management and Machine Learning.",
       tags: ["Education","DB Management","ML"],
     },
   ];
@@ -37,7 +37,7 @@ function Resume() {
             <h2 className="section-title">A timeline of <em>good problems.</em></h2>
           </div>
           <div className="section-meta">
-            <div>One internship, one capstone, one degree</div>
+            <div>Five production systems shipped</div>
             <div>PDF available on request</div>
           </div>
         </div>

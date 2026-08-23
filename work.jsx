@@ -7,8 +7,8 @@ const PROJECTS = [
     sub: "From chat-thread auctions to a real-time bidding floor",
     tags: ["Full-Stack", "Real-Time", "Web App"],
     year: "2026",
-    role: "Full-Stack Developer · OJT",
-    duration: "Feb 2026",
+    role: "Full-Stack Developer",
+    status: "In production",
     accent: "#ff5500",
     problem: "Veent's auction events were running on chat threads and spreadsheets. Bidders missed price changes between refreshes, two people would post the same number seconds apart, and organizers reconciled winners by hand after every event. The honest answer to \"who's winning right now?\" was \"hold on, let me scroll.\"",
     solution: "A purpose-built auction marketplace. Bids enter a Redis queue and a separate worker processes them in strict order, then pushes price updates to every connected screen through Server-Sent Events. No polling, no refresh. SvelteKit and Payload CMS 3 handle listings and admin; Sentry catches every production stack trace; Redis-backed rate limiting blocks automated bid spam.",
@@ -30,8 +30,8 @@ const PROJECTS = [
     sub: "Attendees find their event photos in seconds, not hours",
     tags: ["Web App", "ML / pgvector", "Full-Stack"],
     year: "2026",
-    role: "Full-Stack Developer · OJT",
-    duration: "Apr 2026",
+    role: "Full-Stack Developer",
+    status: "In production",
     accent: "#5b8cff",
     problem: "After every event, attendees would scroll through hundreds, sometimes thousands, of photos hoping to spot themselves, and most gave up before buying any. Organizers ended up answering \"can you find me?\" DMs for days, doing manual search inside their own galleries.",
     solution: "Upload a selfie, get every photo you're in. Immich's ArcFace model produces face embeddings, pgvector stores them, and cosine similarity does the matching. Sharp paints a three-layer watermark on unpurchased photos so previews can't be stolen, and matches cache per user for 24 hours so repeat visits don't re-hit the ML.",
@@ -53,8 +53,8 @@ const PROJECTS = [
     sub: "Operators stop emptying coin boxes and check revenue from their phone",
     tags: ["Backend", "Infra", "Payments"],
     year: "2026",
-    role: "Full-Stack Developer · OJT",
-    duration: "May 2026",
+    role: "Full-Stack Developer",
+    status: "In production",
     accent: "#3fdc6e",
     problem: "Piso WiFi operators were collecting coins by hand, driving from site to site to top up vouchers and reconcile takings, and physically logging into each OpenWRT router whenever something needed changing. Customers paid in coins, or skipped it entirely if they didn't have any.",
     solution: "Maya payments hooked into FreeRADIUS. The session starts the second money clears. No vouchers, no kiosk. One dashboard runs every franchise router instead of operators touching each box individually. APScheduler expires dead sessions and reconciles payments overnight, a Telegram bot pings operators on outages, and FreeRADIUS CoA lets users pause a session and resume the remaining time later.",
@@ -76,8 +76,8 @@ const PROJECTS = [
     sub: "Two AI chatbots that take repetitive support off the team",
     tags: ["AI / RAG", "LLM", "Web"],
     year: "2026",
-    role: "Full-Stack Developer · OJT",
-    duration: "Apr 2026",
+    role: "Full-Stack Developer",
+    status: "In production",
     accent: "#b347ff",
     problem: "Veent's support inbox handled the same buyer FAQs and the same organizer onboarding questions over and over. Hiring out wasn't the answer, but a single shared chatbot risked leaking organizer-only settings into a buyer's reply, which was worse than no bot at all.",
     solution: "Two chatbots, one platform, two strictly isolated Dify knowledge bases. Llama-3.1-8b via Groq handles inference (fast, no model to babysit); Gemini embeddings power semantic search; retrieval weights tuned to 0.7 keyword / 0.3 semantic after testing. A Playwright crawler scrapes veent.io listings and regenerates the knowledge base files automatically, so nobody has to update them by hand.",
@@ -99,8 +99,8 @@ const PROJECTS = [
     sub: "Stop guessing what to reorder. Forecast it.",
     tags: ["Backend", "ML / Forecasting", "Capstone"],
     year: "2025",
-    role: "Backend Developer · Capstone",
-    duration: "Jan–Dec 2025",
+    role: "Backend Developer",
+    status: "Capstone project",
     accent: "#ff4d6d",
     problem: "The partner business was reordering by gut. Slow-moving items piled up; fast movers went out of stock at the worst possible times. Reports lived in spreadsheets, were assembled by hand at month-end, and arrived too late to act on. \"How much do we need?\" was answered after the answer no longer mattered.",
     solution: "An inventory system that does the forecasting itself. Facebook Prophet trains nightly on each item's order history and predicts next-month and six-month demand. Below the 12-month threshold (or 10 issuances), it falls back to a moving average of the last 3 non-zero months. A restock simulation walks the 6-month forecast month-by-month and outputs exactly how much to order each month. Models persist with joblib; stock cards log every receipt, issuance, and adjustment so there's a clear trail when numbers look off.",
@@ -623,7 +623,7 @@ function CaseStudy({ p, onClose }) {
         <div className="cs-body">
           <div className="cs-meta">
             <div><div className="meta-k">Role</div><div className="meta-v">{p.role}</div></div>
-            <div><div className="meta-k">Duration</div><div className="meta-v">{p.duration}</div></div>
+            <div><div className="meta-k">Status</div><div className="meta-v">{p.status}</div></div>
             <div><div className="meta-k">Stack</div><div className="meta-v">{p.stack.join(" · ")}</div></div>
             <div><div className="meta-k">Year</div><div className="meta-v">{p.year}</div></div>
           </div>

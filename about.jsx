@@ -12,7 +12,7 @@ function About() {
           <div className="section-meta">
             <div>Based in Cagayan de Oro, PH</div>
             <div>Working globally</div>
-            <div>Open to: junior, contract, full-time</div>
+            <div>Open to: contract, full-time, remote</div>
           </div>
         </div>
 
@@ -38,7 +38,7 @@ function About() {
 
           <div className="about-body reveal">
             <p className="about-lead">
-              I'm <strong>Zoe Mart</strong>, a full-stack developer fresh out of <em>USTP</em>, based in Cagayan de Oro. I just wrapped a four-month OJT at Veent Apps Inc., where I shipped five production systems across payments, AI chat, face recognition, live auctions, and ticketing.
+              I'm <strong>Zoe Mart</strong>, a full-stack developer based in Cagayan de Oro, building systems that have to <em>hold up in production</em>. At Veent Apps Inc. I shipped five of them across payments, AI chat, face recognition, live auctions, and ticketing. Each one runs against real users, real payments, and real traffic.
             </p>
             <p className="about-p">
               I'm comfortable end-to-end: SvelteKit or React on the front, FastAPI or Express on the back, PostgreSQL or MySQL in the middle. I reach for Redis when state has to move fast, pgvector when meaning matters, and Docker so the whole thing runs the same on my laptop as it does in production. The work I'm proudest of turns a manual hour into a clean second.
@@ -47,7 +47,7 @@ function About() {
             <div className="about-stats">
               <div><b>5</b><span>production systems shipped</span></div>
               <div><b>30+</b><span>technologies in rotation</span></div>
-              <div><b>2025</b><span>BS IT, USTP</span></div>
+              <div><b>BS IT</b><span>USTP</span></div>
             </div>
 
             <ChipPit />
