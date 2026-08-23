@@ -475,7 +475,124 @@ function WifiArt({ p }) {
   );
 }
 
+// Scroll rail for the case-study sheet: a document minimap with chapter ticks,
+// a live percentage readout, and drag-to-scrub. Replaces the native scrollbar.
+function CaseRail({ sheetRef }) {
+  const [win, setWin] = React.useState({ top: 0, h: 1, pct: 0 });
+  const [marks, setMarks] = React.useState([]);
+  const [active, setActive] = React.useState(-1);
+  const [live, setLive] = React.useState(false);
+  const [ok, setOk] = React.useState(false);
+  const trackRef = React.useRef(null);
+  const marksRef = React.useRef([]);
+  const dragRef = React.useRef(false);
+  const liveTo = React.useRef(null);
+
+  React.useEffect(() => {
+    const el = sheetRef.current;
+    if (!el) return;
+    // .cs-sheet is unpositioned, so measure against its own rect rather than offsetTop
+    const topOf = (node) =>
+      node.getBoundingClientRect().top - el.getBoundingClientRect().top + el.scrollTop;
+
+    const measure = () => {
+      setOk(el.scrollHeight - el.clientHeight > 60);
+      const m = Array.from(el.querySelectorAll(".cs-block")).map((b) => {
+        const top = topOf(b);
+        return {
+          n: (b.querySelector(".cs-block-n")?.textContent || "").trim(),
+          lbl: (b.querySelector(".cs-block-lbl > span:last-child")?.textContent || "").trim(),
+          top,
+          pos: Math.min(1, Math.max(0, top / Math.max(1, el.scrollHeight))),
+        };
+      });
+      marksRef.current = m;
+      setMarks(m);
+    };
+
+    const onScroll = () => {
+      const sh = Math.max(1, el.scrollHeight);
+      const max = Math.max(1, el.scrollHeight - el.clientHeight);
+      setWin({
+        top: el.scrollTop / sh,
+        h: Math.min(1, el.clientHeight / sh),
+        pct: Math.min(1, Math.max(0, el.scrollTop / max)),
+      });
+      const probe = el.scrollTop + el.clientHeight * 0.3;
+      let cur = -1;
+      marksRef.current.forEach((mk, i) => { if (mk.top <= probe) cur = i; });
+      setActive(cur);
+      setLive(true);
+      clearTimeout(liveTo.current);
+      liveTo.current = setTimeout(() => setLive(false), 900);
+    };
+
+    measure(); onScroll();
+    el.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", measure);
+    // re-measure once the open animation and webfonts have settled
+    const t = setTimeout(() => { measure(); onScroll(); }, 450);
+    return () => {
+      el.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", measure);
+      clearTimeout(t); clearTimeout(liveTo.current);
+    };
+  }, [sheetRef]);
+
+  // drag anywhere on the track: the visible band centres on the pointer
+  const scrub = (clientY) => {
+    const el = sheetRef.current, tr = trackRef.current;
+    if (!el || !tr) return;
+    const r = tr.getBoundingClientRect();
+    const f = Math.min(1, Math.max(0, (clientY - r.top) / Math.max(1, r.height)));
+    const winH = el.clientHeight / Math.max(1, el.scrollHeight);
+    const target = (f - winH / 2) * el.scrollHeight;
+    el.scrollTop = Math.min(el.scrollHeight - el.clientHeight, Math.max(0, target));
+  };
+  const onDown = (e) => {
+    dragRef.current = true;
+    try { e.currentTarget.setPointerCapture(e.pointerId); } catch (err) {}
+    scrub(e.clientY);
+  };
+  const onMove = (e) => { if (dragRef.current) scrub(e.clientY); };
+  const onUp = (e) => {
+    dragRef.current = false;
+    try { e.currentTarget.releasePointerCapture(e.pointerId); } catch (err) {}
+  };
+
+  if (!ok) return null;
+  const pc = (v) => (v * 100).toFixed(2) + "%";
+
+  return (
+    <div className={"cs-rail" + (live ? " is-live" : "")}>
+      <div className="cs-rail-track" ref={trackRef} data-cursor="scrub"
+           onPointerDown={onDown} onPointerMove={onMove}
+           onPointerUp={onUp} onPointerCancel={onUp}>
+        <div className="cs-rail-line" />
+        <div className="cs-rail-read" style={{ height: pc(win.top) }} />
+        <div className="cs-rail-band" style={{ top: pc(win.top), height: pc(win.h) }} />
+        {marks.map((mk, i) => (
+          <button key={i} type="button" data-cursor={mk.lbl}
+                  className={"cs-tick" + (i === active ? " on" : "")}
+                  style={{ top: pc(mk.pos) }}
+                  onPointerDown={(e) => e.stopPropagation()}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    sheetRef.current?.scrollTo({ top: Math.max(0, mk.top - 32), behavior: "smooth" });
+                  }}>
+            <b>{mk.lbl}</b><span>{mk.n}</span><i />
+          </button>
+        ))}
+        <div className="cs-thumb" style={{ top: pc(win.top + win.h / 2) }}>
+          {Math.round(win.pct * 100)}%
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function CaseStudy({ p, onClose }) {
+  const sheetRef = React.useRef(null);
   React.useEffect(() => {
     const onKey = (e) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", onKey);
@@ -484,7 +601,8 @@ function CaseStudy({ p, onClose }) {
   }, [onClose]);
   return (
     <div className="cs-back" onClick={onClose}>
-      <div className="cs-sheet" onClick={e => e.stopPropagation()} style={{"--pAccent": p.accent}}>
+      <div className="cs-sheet" ref={sheetRef} onClick={e => e.stopPropagation()} style={{"--pAccent": p.accent}}>
+        <div className="cs-railwrap"><CaseRail sheetRef={sheetRef} /></div>
         <button className="cs-close" onClick={onClose} data-cursor="close">
           <span>Close</span>
           <svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" strokeWidth="1.5"/></svg>
@@ -722,8 +840,55 @@ const workStyles = `
   @keyframes csfade{from{opacity:0}to{opacity:1}}
   .cs-sheet{width:100%;max-width:1100px;max-height:calc(100vh - 64px);overflow-y:auto;
     background:var(--bg-2);border:1px solid var(--line);border-radius:24px;
-    animation:csup .35s cubic-bezier(.2,.7,.2,1)}
+    animation:csup .35s cubic-bezier(.2,.7,.2,1);
+    scrollbar-width:none;-ms-overflow-style:none}
+  .cs-sheet::-webkit-scrollbar{width:0;height:0;display:none}
   @keyframes csup{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+  /* Scroll rail — document minimap with chapter ticks, replaces the native bar */
+  .cs-railwrap{position:sticky;top:0;height:0;z-index:6;pointer-events:none}
+  .cs-rail{position:absolute;top:0;right:16px;height:calc(100vh - 64px);
+    display:flex;align-items:center;justify-content:flex-end;
+    pointer-events:auto;opacity:.45;transition:opacity .35s}
+  .cs-rail:hover,.cs-rail.is-live{opacity:1}
+  .cs-rail-track{position:relative;width:22px;height:calc(100% - 104px);
+    cursor:none;touch-action:none}
+  .cs-rail-line{position:absolute;right:0;top:0;bottom:0;width:1px;background:var(--line-2)}
+  .cs-rail-read{position:absolute;right:0;top:0;width:1px;
+    background:var(--pAccent);opacity:.28}
+  .cs-rail-band{position:absolute;right:-1px;width:3px;min-height:24px;border-radius:99px;
+    background:var(--pAccent);box-shadow:0 0 12px -2px var(--pAccent);
+    transition:box-shadow .3s}
+  .cs-rail:hover .cs-rail-band{box-shadow:0 0 18px 0 var(--pAccent)}
+  .cs-tick{position:absolute;right:0;transform:translateY(-50%);
+    display:flex;align-items:center;justify-content:flex-end;gap:7px;
+    background:none;border:0;padding:0;cursor:none;color:var(--fg-3);
+    font:500 9px/1 var(--mono);letter-spacing:.09em;text-transform:uppercase;
+    white-space:nowrap;transition:color .25s}
+  .cs-tick i{display:block;width:7px;height:1px;background:currentColor;opacity:.5;
+    transition:width .3s cubic-bezier(.2,.7,.2,1),opacity .3s}
+  .cs-tick:hover{color:var(--fg)}
+  .cs-tick.on{color:var(--pAccent)}
+  .cs-tick.on i,.cs-tick:hover i{width:15px;opacity:1}
+  .cs-tick b{font-weight:500;opacity:0;max-width:0;overflow:hidden;padding:0;border-radius:99px;
+    background:rgba(10,10,10,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    transition:opacity .25s,max-width .35s cubic-bezier(.2,.7,.2,1),padding .25s}
+  /* labels are transient: they surface while scrolling or on hover, never sit over the copy */
+  .cs-rail:hover .cs-tick b,.cs-rail.is-live .cs-tick.on b{opacity:1;max-width:150px;padding:4px 9px}
+  .cs-thumb{position:absolute;right:8px;transform:translateY(-50%);
+    padding:3px 7px;border:1px solid var(--pAccent);border-radius:99px;
+    background:rgba(10,10,10,.88);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    color:var(--pAccent);font:500 9px/1 var(--mono);letter-spacing:.06em;
+    box-shadow:0 0 16px -6px var(--pAccent);pointer-events:none;
+    opacity:0;transition:opacity .3s}
+  .cs-rail:hover .cs-thumb,.cs-rail.is-live .cs-thumb{opacity:1}
+  @media (max-width:980px){
+    .cs-railwrap{display:none}
+    .cs-sheet{scrollbar-width:thin}
+    .cs-sheet::-webkit-scrollbar{width:6px;display:block}
+    .cs-sheet::-webkit-scrollbar-track{background:transparent}
+    .cs-sheet::-webkit-scrollbar-thumb{background:var(--pAccent);border-radius:99px;opacity:.6}
+  }
   .cs-close{position:absolute;top:48px;right:48px;display:inline-flex;align-items:center;gap:8px;
     padding:10px 16px;background:rgba(255,255,255,.06);border:1px solid var(--line-2);border-radius:99px;
     font:500 11px/1 var(--mono);text-transform:uppercase;letter-spacing:.06em;z-index:5}
