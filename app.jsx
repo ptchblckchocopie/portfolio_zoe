@@ -35,7 +35,6 @@ function App() {
       <Work />
       <About />
       <Resume />
-      <Assistant />
       <Contact />
 
       <TweaksPanel title="Tweaks">

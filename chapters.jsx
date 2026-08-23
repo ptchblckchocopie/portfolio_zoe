@@ -5,8 +5,7 @@ const CHAPTERS = [
   { id: "work",    n: "02", label: "Selected Work" },
   { id: "about",   n: "03", label: "About" },
   { id: "resume",  n: "05", label: "Curriculum Vitae" },
-  { id: "ask",     n: "06", label: "Ask the Portfolio" },
-  { id: "contact", n: "07", label: "Contact" },
+  { id: "contact", n: "06", label: "Contact" },
 ];
 
 function ReadingProgress() {

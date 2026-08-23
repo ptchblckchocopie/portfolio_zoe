@@ -19,7 +19,7 @@ function About() {
         <div className="about-grid">
           <div className="about-portrait reveal">
             <div className="ap-frame">
-              <image-slot id="portrait" src="/portrait.png" placeholder="Drop a portrait photo" shape="rounded" radius="14"></image-slot>
+              <image-slot id="portrait" src="/portrait.jpg" placeholder="Drop a portrait photo" shape="rounded" radius="14"></image-slot>
               <div className="ap-tag">
                 <span className="meta-k">/ Portrait</span>
                 <span>Optional — drop an image</span>

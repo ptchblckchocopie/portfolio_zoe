@@ -4,7 +4,7 @@ function Nav({ onTweaksAvail }) {
   const [active, setActive] = React.useState("home");
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
-    const ids = ["work","about","resume","ask","contact"];
+    const ids = ["work","about","resume","contact"];
     const onScrollActive = () => {
       const pos = window.scrollY + window.innerHeight * 0.35;
       let cur = "home";
@@ -84,8 +84,7 @@ function Nav({ onTweaksAvail }) {
         <a href="#work" className={active==="work"?"is-on":""}><span className="num">02</span>Work</a>
         <a href="#about" className={active==="about"?"is-on":""}><span className="num">03</span>About</a>
         <a href="#resume" className={active==="resume"?"is-on":""}><span className="num">05</span>CV</a>
-        <a href="#ask" className={active==="ask"?"is-on":""}><span className="num">06</span>Ask</a>
-        <a href="#contact" className={active==="contact"?"is-on":""}><span className="num">07</span>Contact</a>
+        <a href="#contact" className={active==="contact"?"is-on":""}><span className="num">06</span>Contact</a>
       </div>
       <a href="#contact" className="nav-cta" data-cursor="say hi">
         <span className="ic"></span>
