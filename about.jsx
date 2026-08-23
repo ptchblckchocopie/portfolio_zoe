@@ -20,10 +20,6 @@ function About() {
           <div className="about-portrait reveal">
             <div className="ap-frame">
               <image-slot id="portrait" src="/portrait.jpg" placeholder="Drop a portrait photo" shape="rounded" radius="14"></image-slot>
-              <div className="ap-tag">
-                <span className="meta-k">/ Portrait</span>
-                <span>Optional — drop an image</span>
-              </div>
             </div>
             <div className="ap-stamp">
               <div className="ap-stamp-rot">
@@ -293,10 +289,6 @@ const aboutStyles = `
     border:1px solid var(--line);background:var(--bg-2)}
   .ap-frame image-slot{position:absolute;inset:0;width:100%;height:100%;
     --is-bg:#1a1a1a;--is-fg:rgba(255,255,255,.55);--is-border:rgba(255,255,255,.1)}
-  .ap-tag{position:absolute;left:14px;bottom:14px;background:rgba(0,0,0,.55);
-    backdrop-filter:blur(8px);padding:10px 12px;border-radius:8px;
-    display:flex;flex-direction:column;gap:2px;border:1px solid var(--line);z-index:2;
-    font:500 10px/1.3 var(--mono);color:var(--fg-2);text-transform:uppercase;letter-spacing:.06em;pointer-events:none}
   .ap-stamp{position:absolute;right:-30px;bottom:-30px;color:var(--accent);
     animation:rot 16s linear infinite;transform-origin:center}
   @keyframes rot{from{transform:rotate(0)}to{transform:rotate(360deg)}}
