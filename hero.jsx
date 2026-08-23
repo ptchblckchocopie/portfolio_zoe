@@ -1,4 +1,4 @@
-// Hero — interactive animated stage with dot field and reactive name
+// Hero: interactive animated stage with dot field and reactive name
 // Variants: "field" (dot grid that warps to cursor), "orbit" (particle constellation), "glyph" (cycling glyph stack)
 
 function Hero({ variant = "field", accent = "#ff5500" }) {
@@ -14,11 +14,11 @@ function Hero({ variant = "field", accent = "#ff5500" }) {
         <div className="hero-meta hero-meta-l">
           <div className="meta-block">
             <div className="meta-k">/ Portfolio</div>
-            <div className="meta-v">2024 — 2026</div>
+            <div className="meta-v">2024–2026</div>
           </div>
           <div className="meta-block">
             <div className="meta-k">/ Index</div>
-            <div className="meta-v">01 — 05 selected</div>
+            <div className="meta-v">01–05 selected</div>
           </div>
         </div>
 
@@ -44,7 +44,7 @@ function Hero({ variant = "field", accent = "#ff5500" }) {
         <div className="hero-strap">
           <div className="strap-l">
             <span className="dot-live" />
-            <span>Available for select projects — Q3 / Q4 ’26</span>
+            <span>Available for select projects · Q3 / Q4 ’26</span>
           </div>
           <div className="strap-r">
             <span className="scroll-cue">
@@ -111,7 +111,7 @@ function Hero({ variant = "field", accent = "#ff5500" }) {
   );
 }
 
-// Reactive letters — each letter has a per-letter magnet offset based on cursor proximity
+// Reactive letters: each letter has a per-letter magnet offset based on cursor proximity
 function MagnetText({ text }) {
   const wrap = React.useRef(null);
   React.useEffect(() => {
@@ -157,7 +157,7 @@ function MagnetText({ text }) {
   );
 }
 
-// Dot field — canvas of dots that displace away from cursor
+// Dot field: canvas of dots that displace away from cursor
 function DotField({ accent }) {
   const canvasRef = React.useRef(null);
   React.useEffect(() => {
@@ -227,7 +227,7 @@ function DotField({ accent }) {
   return <canvas ref={canvasRef} style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />;
 }
 
-// Orbit — particle constellation, click attracts
+// Orbit: particle constellation, click attracts
 function Orbit({ accent }) {
   const canvasRef = React.useRef(null);
   React.useEffect(() => {
@@ -307,7 +307,7 @@ function Orbit({ accent }) {
   return <canvas ref={canvasRef} style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />;
 }
 
-// Glyph cascade — columns of cycling unicode glyphs, like a calmer Matrix
+// Glyph cascade: columns of cycling unicode glyphs, like a calmer Matrix
 function Glyph({ accent }) {
   const canvasRef = React.useRef(null);
   React.useEffect(() => {

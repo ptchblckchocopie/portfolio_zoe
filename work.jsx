@@ -1,4 +1,4 @@
-// Work — 5 projects in an asymmetric grid, hover transforms, click → case study modal
+// Work: 5 projects in an asymmetric grid, hover transforms, click → case study modal
 
 const PROJECTS = [
   {
@@ -11,8 +11,8 @@ const PROJECTS = [
     duration: "Feb 2026",
     accent: "#ff5500",
     problem: "Veent's auction events were running on chat threads and spreadsheets. Bidders missed price changes between refreshes, two people would post the same number seconds apart, and organizers reconciled winners by hand after every event. The honest answer to \"who's winning right now?\" was \"hold on, let me scroll.\"",
-    solution: "A purpose-built auction marketplace. Bids enter a Redis queue and a separate worker processes them in strict order, then pushes price updates to every connected screen through Server-Sent Events — no polling, no refresh. SvelteKit and Payload CMS 3 handle listings and admin; Sentry catches every production stack trace; Redis-backed rate limiting blocks automated bid spam.",
-    outcome: "An auction now runs with one tab open. Bidders see the price tick the instant it changes; organizers stop reconciling by hand because the system already has the answer. Seven Docker services, one compose file — same config in dev and prod.",
+    solution: "A purpose-built auction marketplace. Bids enter a Redis queue and a separate worker processes them in strict order, then pushes price updates to every connected screen through Server-Sent Events. No polling, no refresh. SvelteKit and Payload CMS 3 handle listings and admin; Sentry catches every production stack trace; Redis-backed rate limiting blocks automated bid spam.",
+    outcome: "An auction now runs with one tab open. Bidders see the price tick the instant it changes; organizers stop reconciling by hand because the system already has the answer. Seven Docker services, one compose file, same config in dev and prod.",
     pal: ["#0a0a0a", "#ff5500", "#f5f5f5"],
     monogram: "BM",
     span: "large",
@@ -33,9 +33,9 @@ const PROJECTS = [
     role: "Full-Stack Developer · OJT",
     duration: "Apr 2026",
     accent: "#5b8cff",
-    problem: "After every event, attendees would scroll through hundreds — sometimes thousands — of photos hoping to spot themselves, and most gave up before buying any. Organizers ended up answering \"can you find me?\" DMs for days, doing manual search inside their own galleries.",
+    problem: "After every event, attendees would scroll through hundreds, sometimes thousands, of photos hoping to spot themselves, and most gave up before buying any. Organizers ended up answering \"can you find me?\" DMs for days, doing manual search inside their own galleries.",
     solution: "Upload a selfie, get every photo you're in. Immich's ArcFace model produces face embeddings, pgvector stores them, and cosine similarity does the matching. Sharp paints a three-layer watermark on unpurchased photos so previews can't be stolen, and matches cache per user for 24 hours so repeat visits don't re-hit the ML.",
-    outcome: "What used to take attendees twenty minutes takes under two seconds. Organizers stop being a search engine for their own galleries — the gallery searches itself. The whole stack stands up with one `docker compose up`.",
+    outcome: "What used to take attendees twenty minutes takes under two seconds. Organizers stop being a search engine for their own galleries. The gallery searches itself. The whole stack stands up with one `docker compose up`.",
     pal: ["#0a0a0a", "#5b8cff", "#a7c0ff"],
     monogram: "VS",
     span: "tall",
@@ -50,14 +50,14 @@ const PROJECTS = [
   {
     n: "03",
     title: "Cashless Piso WiFi",
-    sub: "Operators stop emptying coin boxes — and check revenue from their phone",
+    sub: "Operators stop emptying coin boxes and check revenue from their phone",
     tags: ["Backend", "Infra", "Payments"],
     year: "2026",
     role: "Full-Stack Developer · OJT",
     duration: "May 2026",
     accent: "#3fdc6e",
-    problem: "Piso WiFi operators were collecting coins by hand, driving from site to site to top up vouchers and reconcile takings, and physically logging into each OpenWRT router whenever something needed changing. Customers paid in coins — or skipped it entirely if they didn't have any.",
-    solution: "Maya payments hooked into FreeRADIUS. The session starts the second money clears — no vouchers, no kiosk. One dashboard runs every franchise router instead of operators touching each box individually. APScheduler expires dead sessions and reconciles payments overnight, a Telegram bot pings operators on outages, and FreeRADIUS CoA lets users pause a session and resume the remaining time later.",
+    problem: "Piso WiFi operators were collecting coins by hand, driving from site to site to top up vouchers and reconcile takings, and physically logging into each OpenWRT router whenever something needed changing. Customers paid in coins, or skipped it entirely if they didn't have any.",
+    solution: "Maya payments hooked into FreeRADIUS. The session starts the second money clears. No vouchers, no kiosk. One dashboard runs every franchise router instead of operators touching each box individually. APScheduler expires dead sessions and reconciles payments overnight, a Telegram bot pings operators on outages, and FreeRADIUS CoA lets users pause a session and resume the remaining time later.",
     outcome: "Operators check revenue from their phone instead of unlocking coin boxes. Customers tap-to-pay and they're online in seconds. The captive portal is plain HTML/JS so it loads fast even on cheap phones, dropping users right on the payment page.",
     pal: ["#0d130f", "#3fdc6e", "#bef2c9"],
     monogram: "CW",
@@ -79,7 +79,7 @@ const PROJECTS = [
     role: "Full-Stack Developer · OJT",
     duration: "Apr 2026",
     accent: "#b347ff",
-    problem: "Veent's support inbox handled the same buyer FAQs and the same organizer onboarding questions over and over. Hiring out wasn't the answer — but a single shared chatbot risked leaking organizer-only settings into a buyer's reply, which was worse than no bot at all.",
+    problem: "Veent's support inbox handled the same buyer FAQs and the same organizer onboarding questions over and over. Hiring out wasn't the answer, but a single shared chatbot risked leaking organizer-only settings into a buyer's reply, which was worse than no bot at all.",
     solution: "Two chatbots, one platform, two strictly isolated Dify knowledge bases. Llama-3.1-8b via Groq handles inference (fast, no model to babysit); Gemini embeddings power semantic search; retrieval weights tuned to 0.7 keyword / 0.3 semantic after testing. A Playwright crawler scrapes veent.io listings and regenerates the knowledge base files automatically, so nobody has to update them by hand.",
     outcome: "Buyers get instant answers without waiting for a human; organizers get help with onboarding without seeing buyer-side content (and vice versa). Chat history persists in localStorage so a refresh doesn't reset the conversation. The team gets their inbox back for the questions that actually need a human.",
     pal: ["#0c0a14", "#b347ff", "#e6cfff"],
@@ -96,15 +96,15 @@ const PROJECTS = [
   {
     n: "05",
     title: "Inventory Management System",
-    sub: "Stop guessing what to reorder — forecast it.",
+    sub: "Stop guessing what to reorder. Forecast it.",
     tags: ["Backend", "ML / Forecasting", "Capstone"],
     year: "2025",
     role: "Backend Developer · Capstone",
-    duration: "Jan — Dec 2025",
+    duration: "Jan–Dec 2025",
     accent: "#ff4d6d",
     problem: "The partner business was reordering by gut. Slow-moving items piled up; fast movers went out of stock at the worst possible times. Reports lived in spreadsheets, were assembled by hand at month-end, and arrived too late to act on. \"How much do we need?\" was answered after the answer no longer mattered.",
     solution: "An inventory system that does the forecasting itself. Facebook Prophet trains nightly on each item's order history and predicts next-month and six-month demand. Below the 12-month threshold (or 10 issuances), it falls back to a moving average of the last 3 non-zero months. A restock simulation walks the 6-month forecast month-by-month and outputs exactly how much to order each month. Models persist with joblib; stock cards log every receipt, issuance, and adjustment so there's a clear trail when numbers look off.",
-    outcome: "Staff reorder before they run out, not after. Forecasts and inventory reports export from the browser in two clicks via jsPDF and AutoTable instead of being assembled by hand. Nobody kicks off training manually — it happens overnight against the live database.",
+    outcome: "Staff reorder before they run out, not after. Forecasts and inventory reports export from the browser in two clicks via jsPDF and AutoTable instead of being assembled by hand. Nobody kicks off training manually. It happens overnight against the live database.",
     pal: ["#0a0a0a", "#ff4d6d", "#ffb3c1"],
     monogram: "IMS",
     span: "small",
@@ -237,7 +237,7 @@ function ProjectCard({ p, idx, onOpen }) {
   );
 }
 
-// Procedural card artwork — each project gets a distinct, brand-aligned scene
+// Procedural card artwork: each project gets a distinct, brand-aligned scene
 function CardArt({ p }) {
   if (p.title === "Bidmoto") return <BidmotoArt p={p} />;
   if (p.title === "Inventory Management System") return <StockwiseArt p={p} />;
@@ -248,7 +248,7 @@ function CardArt({ p }) {
 }
 
 function BidmotoArt({ p }) {
-  // Phone-like card showing a live auction — price ticks up periodically
+  // Phone-like card showing a live auction, price ticks up periodically
   const [price, setPrice] = React.useState(148000);
   const [bumps, setBumps] = React.useState(0);
   React.useEffect(() => {
@@ -758,7 +758,7 @@ const workStyles = `
   .link-arrow:hover svg{transform:rotate(45deg)}
   .link-arrow svg{transition:transform .3s}
 
-  /* Art — Nimbus */
+  /* Art: Nimbus */
   .art{position:absolute;inset:0;overflow:hidden}
   .art-nimbus{display:grid;place-items:center;padding:32px}
   .art-phone{width:240px;height:88%;max-height:380px;background:#0d1117;
@@ -781,7 +781,7 @@ const workStyles = `
     border-bottom:1px solid rgba(255,255,255,.05)}
   .art-phone-graph{margin-top:auto;color:#ff5500}
 
-  /* Art — Spectra */
+  /* Art: Spectra */
   .art-spectra{padding:24px;background:linear-gradient(160deg,#0a0a0a,#0a0f1c)}
   .art-spec-grid{position:absolute;inset:0;display:grid;
     grid-template-columns:repeat(8,1fr);grid-template-rows:repeat(6,1fr);opacity:.4}
@@ -803,7 +803,7 @@ const workStyles = `
   .art-spec-cur{color:#5b8cff;animation:blink 1s infinite}
   @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
 
-  /* Art — Orbit */
+  /* Art: Orbit */
   .art-orbit{padding:24px;display:flex;flex-direction:column;justify-content:space-between;
     background:linear-gradient(160deg,#0d130f,#0a0a0a)}
   .art-orb-stack{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;perspective:600px}
@@ -817,7 +817,7 @@ const workStyles = `
   .art-orb-perf>div{display:flex;flex-direction:column;gap:4px}
   .art-orb-perf b{font:500 18px/1 var(--sans);color:#3fdc6e;letter-spacing:-.02em}
 
-  /* Art — Cascade */
+  /* Art: Cascade */
   .art-cascade{background:radial-gradient(900px 320px at 50% 50%, rgba(179,71,255,.16), transparent 60%), #0c0a14;
     display:grid;place-items:center;padding:24px}
   .art-csc-token{width:88%;background:rgba(20,16,30,.7);border:1px solid rgba(179,71,255,.22);
@@ -828,7 +828,7 @@ const workStyles = `
   .art-csc-sw{width:14px;height:14px;border-radius:3px;display:inline-block}
   .art-csc-v{color:var(--fg-2);font-size:11px}
 
-  /* Art — Resonance */
+  /* Art: Resonance */
   .art-reso{background:radial-gradient(800px 400px at 30% 60%, rgba(255,77,109,.18), transparent 60%), #0a0a0a;
     display:grid;place-items:center;padding:8px}
 
@@ -845,7 +845,7 @@ const workStyles = `
   .cs-sheet::-webkit-scrollbar{width:0;height:0;display:none}
   @keyframes csup{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 
-  /* Scroll rail — document minimap with chapter ticks, replaces the native bar */
+  /* Scroll rail: document minimap with chapter ticks, replaces the native bar */
   .cs-railwrap{position:sticky;top:0;height:0;z-index:6;pointer-events:none}
   .cs-rail{position:absolute;top:0;right:16px;height:calc(100vh - 64px);
     display:flex;align-items:center;justify-content:flex-end;

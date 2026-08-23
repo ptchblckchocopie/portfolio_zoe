@@ -1,4 +1,4 @@
-// Main app — composes everything + Tweaks panel
+// Main app: composes everything + Tweaks panel
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "accent": "#ff5500",
   "heroVariant": "field",

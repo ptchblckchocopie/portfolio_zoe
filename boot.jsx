@@ -1,4 +1,4 @@
-// Boot sequence — a brief cinematic intro that resolves into the hero.
+// Boot sequence: a brief cinematic intro that resolves into the hero.
 // Numeric counter + scramble-locking name + status ticker. Skippable on click.
 
 function Boot({ onDone }) {
@@ -20,13 +20,13 @@ function Boot({ onDone }) {
     const tick = (t) => {
       const e = t - t0;
 
-      // Phase 1: 0–900ms — counter ramps to 6319
+      // Phase 1: 0–900ms, counter ramps to 6319
       if (e < 900) {
         const p = e / 900;
         setN(Math.floor(easeOut(p) * 6319));
         setPhase(1);
       }
-      // Phase 2: 900–1800ms — name resolves left-to-right
+      // Phase 2: 900–1800ms, name resolves left-to-right
       else if (e < 1800) {
         const p = (e - 900) / 900;
         const locked = Math.floor(p * TARGET.length);
@@ -39,7 +39,7 @@ function Boot({ onDone }) {
         setN(6319);
         setPhase(2);
       }
-      // Phase 3: 1800–2400ms — ready state, then fade
+      // Phase 3: 1800–2400ms, ready state, then fade
       else if (e < 2400) {
         setName(TARGET);
         setPhase(3);
@@ -97,7 +97,7 @@ function Boot({ onDone }) {
         </div>
         <div className="boot-status">
           <span className={phase >= 3 ? "ok" : ""}>{["BOOTING","LOADING","RESOLVING","READY"][phase]}</span>
-          <span>—</span>
+          <span>·</span>
           <span style={{opacity:.6}}>tap to skip</span>
         </div>
       </div>

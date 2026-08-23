@@ -38,10 +38,10 @@ function About() {
 
           <div className="about-body reveal">
             <p className="about-lead">
-              I'm <strong>Zoe Mart</strong> — a full-stack developer fresh out of <em>USTP</em>, based in Cagayan de Oro. I just wrapped a four-month OJT at Veent Apps Inc., where I shipped five production systems across payments, AI chat, face recognition, live auctions, and ticketing.
+              I'm <strong>Zoe Mart</strong>, a full-stack developer fresh out of <em>USTP</em>, based in Cagayan de Oro. I just wrapped a four-month OJT at Veent Apps Inc., where I shipped five production systems across payments, AI chat, face recognition, live auctions, and ticketing.
             </p>
             <p className="about-p">
-              I'm comfortable end-to-end — SvelteKit or React on the front, FastAPI or Express on the back, PostgreSQL or MySQL in the middle. I reach for Redis when state has to move fast, pgvector when meaning matters, and Docker so the whole thing runs the same on my laptop as it does in production. The work I'm proudest of turns a manual hour into a clean second.
+              I'm comfortable end-to-end: SvelteKit or React on the front, FastAPI or Express on the back, PostgreSQL or MySQL in the middle. I reach for Redis when state has to move fast, pgvector when meaning matters, and Docker so the whole thing runs the same on my laptop as it does in production. The work I'm proudest of turns a manual hour into a clean second.
             </p>
 
             <div className="about-stats">
@@ -220,7 +220,7 @@ function ChipPit() {
     <div className="pit-wrap">
       <div className="pit-head">
         <div className="meta-k">/ Toolbox</div>
-        <div className="pit-hint" data-cursor="drag">Drag &amp; throw —</div>
+        <div className="pit-hint" data-cursor="drag">Drag &amp; throw</div>
       </div>
       <div ref={pitRef} className="pit" data-drag>
         {SKILLS.map((s) => (
@@ -235,8 +235,8 @@ function Services() {
   const services = [
     { n: "01", title: "Full-Stack Build", body: "SvelteKit or React on the front, FastAPI or Express on the back. I take a problem from the database schema to the deployed Docker stack.", deliv: ["Production code","Schema + API","Docker compose"] },
     { n: "02", title: "AI / RAG Integration", body: "LLM chatbots, embeddings, semantic search. Dify + Groq + Gemini for fast prototypes; pgvector when meaning needs a home.", deliv: ["RAG chatbots","Knowledge base","Eval setup"] },
-    { n: "03", title: "Real-Time Systems", body: "Redis queues, Server-Sent Events, FreeRADIUS sessions — the parts of an app that need to update without anyone refreshing.", deliv: ["SSE streams","Queue workers","Background jobs"] },
-    { n: "04", title: "Forecasting & ML", body: "Facebook Prophet for demand and time-series. Nightly retrain on live data, persisted models, restock simulations — for products that have to defend their numbers.", deliv: ["Forecast pipeline","Auto retrain","Reports"] },
+    { n: "03", title: "Real-Time Systems", body: "Redis queues, Server-Sent Events, FreeRADIUS sessions: the parts of an app that need to update without anyone refreshing.", deliv: ["SSE streams","Queue workers","Background jobs"] },
+    { n: "04", title: "Forecasting & ML", body: "Facebook Prophet for demand and time-series. Nightly retrain on live data, persisted models, restock simulations. Built for products that have to defend their numbers.", deliv: ["Forecast pipeline","Auto retrain","Reports"] },
   ];
   return (
     <div className="services reveal">
@@ -272,7 +272,7 @@ function ServiceRow({ s, idx }) {
         <div className="serv-body-inner">
           <p>{s.body}</p>
           <div className="serv-list">
-            {s.deliv.map(d => <span key={d} className="serv-chip">— {d}</span>)}
+            {s.deliv.map(d => <span key={d} className="serv-chip">· {d}</span>)}
           </div>
         </div>
       </div>

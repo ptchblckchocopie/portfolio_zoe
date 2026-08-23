@@ -1,4 +1,4 @@
-// Custom cursor — dot + ring with hover/drag states
+// Custom cursor: dot + ring with hover/drag states
 function Cursor({ style = "default" }) {
   const dotRef = React.useRef(null);
   const ringRef = React.useRef(null);

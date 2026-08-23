@@ -3,7 +3,7 @@
 function Resume() {
   const items = [
     {
-      yr: "Feb — May 2026",
+      yr: "Feb–May 2026",
       role: "Full-Stack Developer (OJT)",
       org: "Veent Apps Inc.",
       loc: "Cagayan de Oro",
@@ -11,7 +11,7 @@ function Resume() {
       tags: ["Full-Stack","AI / RAG","Real-Time","5 shipped"],
     },
     {
-      yr: "Jan — Dec 2025",
+      yr: "Jan–Dec 2025",
       role: "Backend Developer (Capstone)",
       org: "USTP",
       loc: "Cagayan de Oro (Academic)",
@@ -19,7 +19,7 @@ function Resume() {
       tags: ["Backend","ML / Forecasting","FastAPI"],
     },
     {
-      yr: "2021 — 2025",
+      yr: "2021–2025",
       role: "BS Information Technology",
       org: "University of Science and Technology of Southern Philippines",
       loc: "Cagayan de Oro",
@@ -91,7 +91,7 @@ function CvRow({ it }) {
         <p className="cv-note">{it.note}</p>
         <div className="cv-tags">
           {it.tags.map(t => <span key={t} className="cv-tag">{t}</span>)}
-          <span className="cv-loc">— {it.loc}</span>
+          <span className="cv-loc">· {it.loc}</span>
         </div>
       </div>
     </div>
@@ -137,7 +137,7 @@ function Contact() {
         <footer className="footer">
           <div className="footer-l">
             <div className="footer-name">Zoe Mart Derick R. Pabillaran</div>
-            <div className="footer-sub">Designed & built in <span style={{color:"var(--accent)"}}>HTML, CSS, JS</span>. Portfolio v3.0 — 2026.</div>
+            <div className="footer-sub">Designed & built in <span style={{color:"var(--accent)"}}>HTML, CSS, JS</span>. Portfolio v3.0 · 2026.</div>
           </div>
           <div className="footer-r">
             <div className="footer-grid-l">
