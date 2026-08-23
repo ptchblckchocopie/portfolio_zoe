@@ -129,10 +129,9 @@ function Contact() {
         </h2>
 
         <div className="ct-rows reveal">
-          <a href="#" className="ct-row" data-cursor="open"><span>LinkedIn</span><span>linkedin.com/in/zoe-pabillaran</span><Arrow/></a>
-          <a href="#" className="ct-row" data-cursor="open"><span>GitHub</span><span>github.com/zoempabillaran</span><Arrow/></a>
-          <a href="#" className="ct-row" data-cursor="open"><span>Read.cv</span><span>read.cv/zoempabillaran</span><Arrow/></a>
-          <a href="#" className="ct-row" data-cursor="open"><span>X / Twitter</span><span>@zmdpabillaran</span><Arrow/></a>
+          <a href="https://www.linkedin.com/in/zoe-mart-derick-pabillaran-124584328/" target="_blank" rel="noopener noreferrer" className="ct-row" data-cursor="open"><span>LinkedIn</span><span>linkedin.com/in/zoe-mart-derick-pabillaran</span><Arrow/></a>
+          <a href="https://github.com/ptchblckchocopie" target="_blank" rel="noopener noreferrer" className="ct-row" data-cursor="open"><span>GitHub</span><span>github.com/ptchblckchocopie</span><Arrow/></a>
+          <a href="https://docs.google.com/document/d/1O_u20otPysPObzVw_bzO1ufV_ezuFoOou3dzcjFaeuQ/edit?usp=sharing" target="_blank" rel="noopener noreferrer" className="ct-row" data-cursor="open"><span>Resume</span><span>View on Google Docs</span><Arrow/></a>
         </div>
 
         <footer className="footer">
@@ -214,8 +213,10 @@ const contactStyles = `
   .ct-h em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--fg-2)}
   .ct-mail{display:inline-flex;align-items:center;gap:18px;border:0;
     color:var(--accent);cursor:none;padding:0;line-height:.95;text-align:left;
-    font:inherit;letter-spacing:inherit;background:transparent}
-  .ct-mail-text{position:relative;transition:color .2s}
+    max-width:100%;flex-wrap:wrap;
+    font-family:inherit;font-weight:inherit;font-size:clamp(20px,5.4vw,78px);
+    letter-spacing:-.03em;background:transparent}
+  .ct-mail-text{position:relative;transition:color .2s;overflow-wrap:anywhere}
   .ct-mail-text::after{content:"";position:absolute;left:0;right:0;bottom:6%;height:6px;
     background:var(--accent);opacity:.4;transition:height .2s}
   .ct-mail:hover .ct-mail-text::after{height:14%}
@@ -235,6 +236,8 @@ const contactStyles = `
   @media (max-width:760px){
     .ct-row{grid-template-columns:1fr 24px;gap:8px}
     .ct-row>span:first-child{grid-column:1/-1;font-size:10px}
+    .ct-mail{gap:12px}
+    .ct-mail-ic{width:44px;height:44px}
   }
 
   .footer{display:flex;justify-content:space-between;align-items:flex-end;
